@@ -8,7 +8,7 @@ from functools import wraps
 import traceback
 import os
 
-AUTH_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczMzA2Njk1NywianRpIjoiNDVlZTk4MjQtMDZjYy00NGMxLTlkODktM2VkZjNlM2RlYTcwIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImFzaHVAZ21haWwuY29tIiwibmJmIjoxNzMzMDY2OTU3LCJjc3JmIjoiZDQ5NGZkNjktMzc1Mi00YTAyLTk5YTItYThkNGEwODEyMzNiIiwiZXhwIjoxNzMzMDcwNTU3fQ._g67Tapv3RVUm0Vqv3jcFXf4lydFLh4akzNkmHTF2Cc"
+AUTH_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTczMzA3NzMwNSwianRpIjoiZTBjZThjNjEtYWIxMy00MGJlLWFhMWMtMDQ4NTVhNGI3OWI5IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6ImFzaHVAZ21haWwuY29tIiwibmJmIjoxNzMzMDc3MzA1LCJjc3JmIjoiNWJjNGU2OTEtNDAxYy00MDBiLWJjNGEtNTJkMjg4ZTM3MDQ1IiwiZXhwIjoxNzMzMDgwOTA1fQ.0yOEUV5E1milGU_tI9bHQDtrvok_qG9QAwY8WKwsOdA"
 
 def timer(func):
     @wraps(func)  # Preserves the name and docstring of the original function
@@ -132,7 +132,7 @@ async def process_and_upload(file_path, file_id: str, chunk_size):
 
 file_id = ""
 chunk_size = 10
-file_path = r'E:\Large-file-processor\movies - movies.csv.csv'  # Path to your CSV 
+# file_path = r'E:\Large-file-processor\movies - movies.csv.csv'  # Path to your CSV 
 
 csv_file_name = 'movies - movies.csv.csv'
 
@@ -143,4 +143,4 @@ root_dir = os.getcwd()  # This gets the current working directory where the scri
 csv_file_path = os.path.join(root_dir, csv_file_name)
 
 if __name__ == '__main__':
-    asyncio.run(process_and_upload(file_path, file_id=file_id, chunk_size=chunk_size))
+    asyncio.run(process_and_upload(csv_file_path, file_id=file_id, chunk_size=chunk_size))
