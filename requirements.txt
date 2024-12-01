@@ -1,0 +1,17 @@
+flask[async]==2.3.3
+httpx==0.24.1 
+asgiref==3.7.2
+uvicorn==0.22.0
+requests
+gunicorn
+waitress
+aiohttp
+celery[redis]
+pandas
+pymongo
+PyJWT
+flask-jwt-extended
+python-dotenv
+pytest
+flasgger
+pytest-asyncio

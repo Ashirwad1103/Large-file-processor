@@ -1,0 +1,48 @@
+{
+    "movies": {
+        "indexes": [
+            {"field": "show_id", "unique": true}
+        ],
+        "schema": {
+            "_id": {
+                "type": "str"
+            },
+            "show_id": {
+                "type": "str"
+            },
+            "type": {
+                "type": "str"
+            },
+            "title": {
+                "type": "str"
+            },
+            "director": {
+                "type": "str"
+            },
+            "cast": {
+                "type": "str"
+            },
+            "country": {
+                "type": "str"
+            },
+            "date_added": {
+                "type": "str"
+            },
+            "release_year": {
+                "type": "int"
+            },
+            "rating": {
+                "type": "str"
+            },
+            "duration": {
+                "type": "str"
+            },
+            "listed_in": {
+                "type": "str"
+            },
+            "description": {
+                "type": "str"
+            }
+        }
+    }
+}
