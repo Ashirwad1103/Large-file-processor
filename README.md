@@ -60,13 +60,13 @@ SETUP -
         redis-server
 
     4. Start Celery Workers
-        celery -A celery_app.tasks worker --loglevel=info
+        celery -A celery_app.tasks worker --pool threads --concurrency 4 --loglevel=info
 
     5. Run the Flask Application
-        python app.py
+        python app/main.py
 
     6. Run the Application with Waitress (for production)
-        waitress-serve --host=127.0.0.1 --port=5000 app:app
+        waitress-serve --host=127.0.0.1 --port=5000 app.main:app
 
 
 
