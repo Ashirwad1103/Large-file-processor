@@ -70,9 +70,11 @@ SETUP -
 
 
 
-Steps to test the code - 
+Tests - 
 
-1. pytest -s tests/test_auth.py - Auth related urls. 
+Pytest Command - pytest -s 
+
+1.  tests/test_auth.py - Auth tests 
     Running tests will print Auth token on console.
 
 2. Use the create_chunks_script.py to test sending chunks
@@ -155,7 +157,108 @@ API Endpoints
             Validate email format and enforce strong password requirements.
             Use secure hashing algorithms like pbkdf2:sha256.
 
-6. /content/content - params - sort_by: ['date_added', 'release_year'. 'duration'], page: int, per_page: , sort_order: [1, -1]
+    6. Get Status of File
+        Endpoint: /content/files/<string:filed_id>
+        Method: GET 
+
+        Requires: Jwt auth token in headers
+
+        Description - 
+        Gets the status of processing of file.
+
+        Response -
+            Success: {
+                "status": "completed",
+                "total_chunks": "5",
+                "file_id": "some_file_id", 
+                "uploaded_chunks": 5
+            }
+            Failure:
+                404: File metadata not found for the provided file_id.
+                    Example:
+                    {
+                        "error": "File metadata not found for file_id=<file_id>"
+                    }
+
+                500: Redis connection error, timeout, or unexpected internal server error.
+                    Example:
+                    {
+                        "error": "Redis connection error: <error_details>"
+                    }
+
+    7. Get Paginated and Sorted Content
+        Endpoint: /content
+        Method: GET
+
+        Description:
+        Fetches paginated and sorted content from the database. Supports filtering by sorting fields and order.
+
+        Headers:
+        Authorization: Bearer <JWT_TOKEN>
+
+        Query Parameters:
+
+        page (optional): Page number for pagination. Default is 1.
+        per_page (optional): Number of items per page. Default is 10.
+        sort_by (optional): Field to sort by. Default is date_added.
+        sort_order (optional): Sorting order, where -1 is descending (default), and 1 is ascending.
+        Response:
+
+        Success (200):
+        Returns a paginated list of content.
+        Example:
+        [
+            {
+                "show_id": "s246",
+                "type": "TV Show",
+                "title": "Korean Cold Noodle Rhapsody",
+                "director": null,
+                "cast": "Paik Jong-won",
+                "country": null,
+                "date_added": "September 02, 2001"
+                "release_year": 2021,
+                "rating": "TV-PG",
+                "duration": "1 Season",
+                "listed_in": "Docuseries, International TV Shows",
+                "description": "Refreshing and flavorful, naengmyeon is Korea's coolest summertime staple. A journey through its history begins, from how it's cooked to how it's loved."
+            },
+            {
+                "show_id": "s247",
+                "type": "Movie",
+                "title": "Man in Love",
+                "director": "Yin Chen-hao",
+                "cast": "Roy Chiu, Ann Hsu, Tsai Chen-nan, Chung Hsin-ling, Lan Wei-hua, Peace Yang, Huang Lu Tz-yin",
+                "country": null,
+                "date_added": "September 01, 2001"
+                "release_year": 2021,
+                "rating": "TV-MA",
+                "duration": "115 min",
+                "listed_in": "Dramas, International Movies, Romantic Movies",
+                "description": "When he meets a debt-ridden woman who's caring for her ailing father, a debt collector with a heart of gold sets out to win her love."
+            }
+        ]
+
+        Failure:
+
+        404: No content found for the given query parameters.
+        Example:
+        {
+            "message": "No content found."
+        }
+
+        400: Invalid sorting field or input value
+        Example:
+        {
+            "error": "Invalid sorting field."
+        }
+
+        500: MongoDB operation failure or unexpected internal server error.
+        Example:
+        {
+            "error": "MongoDB operation failed: <error_details>"
+        }
+
+
 
 Design Considerations
     1. Chunk Size: Ensure the chunk size balances upload speed and server processing time.
